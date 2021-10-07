@@ -1,0 +1,78 @@
+$primary-color: #ff4d6d;
+$secondary-color:#000 ;
+$light-color: rgb(248, 248, 248);
+
+@mixin transparentBg($bg-color) {
+    background-color: lighten($bg-color, 5);
+    box-shadow: 0px 0px 10px 4px rgba(29, 28, 28, 0.137);;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    border: none;
+    padding: 10px;
+}
+
+:root {
+    font-family: 'Rubik';
+    font-weight: 400;
+}
+
+body {
+    background-color: $primary-color;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-x: hidden;
+    
+    #todo-item, #submit-btn {
+        @include transparentBg($primary-color);
+        margin: 100px 0 50px 0;
+
+        &:focus {
+            outline: none;
+        }
+    }
+    #submit-btn {
+        &:hover {
+            color: $light-color;
+            background-color: $secondary-color ;
+            transition: all 0.2s;
+        }
+    }
+    .todo-list {
+        padding: 20px;
+        list-style: none;
+        .todo {
+            display: flex;
+            @include transparentBg($primary-color);
+            font-size: 1rem;
+            min-width: 300px;
+            margin: 10px;
+            li {
+                flex: 1;
+            }
+            i {
+                padding: 0 8px;
+                font-size: 1.3rem;
+                &:hover {
+                    transform: scale(0.91);
+                    transition: transform 0.2s;
+                }
+            }
+        }
+        .delete-animation {
+            transform: scaleX(0);
+            opacity: 0;
+            transition: all 0.4s;
+            transform-origin: right;
+        }
+        .checked {
+            opacity: 0.5;
+            li {
+                color: #00dd55;
+            }
+            
+        }
+    }
+}
