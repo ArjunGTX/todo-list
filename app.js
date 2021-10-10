@@ -25,8 +25,19 @@ function showWarning(message) {
 
 //function to update the count of todos
 function updateCount() {
-    let completedCount = JSON.parse(localStorage.getItem('checkedTodos')).length;
-    let pendingCount = JSON.parse(localStorage.getItem('todos')).length;
+    let completedCount;
+    let pendingCount;
+    if(JSON.parse(localStorage.getItem('checkedTodos')) === null) {
+        completedCount = 0;
+    } else {
+        completedCount = JSON.parse(localStorage.getItem('checkedTodos')).length;
+    }
+    if(JSON.parse(localStorage.getItem('todos')) === null) {
+        pendingCount = 0;
+    } else {
+        pendingCount = JSON.parse(localStorage.getItem('todos')).length;
+    }
+   
     counterDiv.innerHTML = `Todos Completed : ${completedCount}<br>Todos Pending : ${pendingCount}`;
     
 }
@@ -73,10 +84,11 @@ function createTodo(item) {
     todoList.appendChild(todo);
     //adding click event for check button
     checkBtn.addEventListener('click',function() {
+        todo.remove();
+        createCheckedTodo(item);
         showWarning('');
-        todo.classList.add('checked');
         storeCheckedTodo(todoItem.innerText);
-        removeTodo(item,'todos');
+        removeTodo(item,'todos')
         updateCount();
         todo.addEventListener('transitionend',function() {
             checkBtn.remove();
@@ -92,7 +104,7 @@ function createTodo(item) {
         })
         //removing todo from local storage
         removeTodo(item,'todos');
-        removeTodo(item,'checkedTodos');
+        removeTodo(item,'checkTodos');
         updateCount();
     });
 }
@@ -119,7 +131,6 @@ function createCheckedTodo(item) {
         todo.remove();
         })
         //removing todo from local storage
-        removeTodo(item,'todos');
         removeTodo(item,'checkedTodos');
         updateCount();
     });
@@ -188,9 +199,12 @@ function getCheckedTodo() {
 function removeTodo(todo,todoType) {
     let todos = JSON.parse(localStorage.getItem(todoType));
     //removes the todo from todos array
-    todos = todos.filter((item) => {
-        return item !== todo;
-    });
-    //storing the new todolist in the local storage
-    localStorage.setItem(todoType,JSON.stringify(todos));
+    if(todos !== null) {
+        todos = todos.filter((item) => {
+            return item !== todo;
+        });
+        //storing the new todolist in the local storage
+        localStorage.setItem(todoType,JSON.stringify(todos));
+    }
+  
 }
