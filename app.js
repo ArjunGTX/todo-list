@@ -43,7 +43,7 @@ function updateCount() {
 }
 
 function clickHandler(e) {
-    let todoItem = inputElement.value;
+    let todoItem = (inputElement.value).toLowerCase();
     //prevents auto refresh
     e.preventDefault();
     //validation for empty input
