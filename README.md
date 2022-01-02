@@ -10,6 +10,12 @@ A simple to do app to create a todo list
 6. Check comoleted todos
 7. Responsive Design
 
+# Learning Outcomes
+1. Sass Basics
+2. LocalStorage
+3. CRUD operations
+4. DOM Manipulations
+
 ## How to Use
 1. Enter todo item in the input field
 2. Click on the add button
